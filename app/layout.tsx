@@ -19,7 +19,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
-      className="max-w-6xl mx-auto py-10 px-4 scrollbar-thin scrollbar-thumb-neutral-200 scrollbar-track-neutral-400 bg-[#f1f1f1]"
+      className="max-w-6xl mx-auto h-screen py-10 px-4 scrollbar-thin scrollbar-thumb-neutral-200 scrollbar-track-neutral-400 bg-[#f1f1f1]"
     >
       <body className={inter.className}>
         <Header />

@@ -2,10 +2,11 @@
 import React from "react";
 import title from "./assets/home_title.svg";
 import rope from "./assets/rope.svg";
+import ropeVertical from "./assets/rope_vertical.svg";
 import hashi from "./assets/hashi.svg";
+import nigiriHome from "./assets/nigiri_home.svg";
 import plate from "./assets/plate.svg";
 import Image from "next/image";
-import { useBreakpoint } from "./hooks/useBreakpoints";
 import { useMediaQuery } from "react-responsive";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../tailwind.config";
@@ -22,7 +23,7 @@ export default function Home() {
   console.log(isSm);
 
   return (
-    <div className="flex flex-col h-[85vh] items-center justify-evenly">
+    <div className="flex flex-col h-max md:h-[85vh] items-center justify-evenly">
       {/* <h1>Home</h1> */}
       <Image
         alt="Home Title"
@@ -32,7 +33,11 @@ export default function Home() {
         height={400}
       />
       <div className="relative w-full flex flex-col md:flex-row gap-8 justify-between items-center">
-        <Image alt="Hashi" quality={100} src={hashi} width={300} height={200} />
+        {isSm ? (
+          <Image alt="Nigiri" src={nigiriHome} width={300} height={200} />
+        ) : (
+          <Image alt="Hashi" src={hashi} width={300} height={200} />
+        )}
         <button
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
@@ -98,9 +103,28 @@ export default function Home() {
             </svg>
           )} */}
         </button>
-        <Image alt="Plate" quality={100} src={plate} width={300} height={200} />
+        {!isSm && (
+          <Image
+            alt="Plate"
+            quality={100}
+            src={plate}
+            width={300}
+            height={200}
+          />
+        )}
       </div>
-      <Image alt="Rope" src={rope} objectFit="cover" layout="responsive" />
+      {isSm ? (
+        <Image
+          alt="Rope Vertical"
+          src={ropeVertical}
+          height={400}
+          width={200}
+          // objectFit="fill"
+          // layout="responsive"
+        />
+      ) : (
+        <Image alt="Rope" src={rope} objectFit="cover" layout="responsive" />
+      )}
     </div>
   );
 }

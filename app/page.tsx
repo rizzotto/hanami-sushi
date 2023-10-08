@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../tailwind.config";
+import Link from "next/link";
 
 const fullConfig = resolveConfig(tailwindConfig);
 const breakpoints: any = fullConfig.theme?.screens;
@@ -38,14 +39,15 @@ export default function Home() {
         ) : (
           <Image alt="Hashi" src={hashi} width={300} height={200} />
         )}
-        <button
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          // hover:bg-[#f1f1f1] hover:text-[--fg]
-          className="btn btn-outline btn-lg relative hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg]"
-        >
-          <div className="z-10">Order Now</div>
-          {/* {hover && (
+        <Link href="/menu">
+          <button
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            // hover:bg-[#f1f1f1] hover:text-[--fg]
+            className="btn btn-outline btn-lg relative hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg]"
+          >
+            <div className="z-10">Order Now</div>
+            {/* {hover && (
             <svg
               className="absolute top-[-32px]"
               viewBox="0 0 1000 1000"
@@ -102,7 +104,8 @@ export default function Home() {
               </g>
             </svg>
           )} */}
-        </button>
+          </button>
+        </Link>
         {!isSm && (
           <Image
             alt="Plate"

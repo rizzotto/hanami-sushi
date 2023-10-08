@@ -1,9 +1,28 @@
+"use client";
 import Link from "next/link";
+import React from "react";
 import { PiShoppingCartSimple } from "react-icons/pi";
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  const listenScrollEvent = () => {
+    setIsScrolled(window.scrollY > 10 ? true : false);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", listenScrollEvent);
+    return () => {
+      window.removeEventListener("scroll", listenScrollEvent);
+    };
+  }, []);
+
   return (
-    <header className="animate-slide-in-down">
+    <header
+      className={`sticky z-10 top-3 transition-all animate-slide-in-down ${
+        isScrolled ? "bg-[#BBB2A3] rounded-md shadow-md" : "bg-transparent"
+      }`}
+    >
       <div className="navbar">
         <div className="navbar-start">
           <Link

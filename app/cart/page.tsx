@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Card from "../components/Card";
 import cartTitle from "../assets/cart_title.svg";
+import checkoutTitle from "../assets/checkout_title.svg";
 import Link from "next/link";
 import CartItem from "../components/CartItem";
 import nigiri from "../assets/nigiri.svg";
@@ -78,6 +78,133 @@ export default function Cart() {
                 23,5$
               </div>
             </div>
+          </div>
+
+          {/* Checkout */}
+          <Image alt="Checkout title" src={checkoutTitle} objectFit="cover" />
+          <div className="flex flex-col gap-3 items-start mb-12">
+            <div className="flex gap-4 w-full flex-col md:flex-row">
+              {/* Name Input */}
+              <div>
+                <label className="label">
+                  <span className="label-text">Your Name*</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg]"
+                />
+              </div>
+
+              {/* Phone Input */}
+              <div>
+                <label className="label">
+                  <span className="label-text">Phone Number*</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg]"
+                />
+              </div>
+            </div>
+            {/* Street Inputs */}
+            <div className="flex gap-4 w-full flex-col md:flex-row">
+              <div>
+                <label className="label">
+                  <span className="label-text">Street*</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full max-w-xs rounded-none border-[--fg] bg-transparent text-[--fg]"
+                />
+              </div>
+
+              <div className="flex gap-4">
+                <div>
+                  <label className="label">
+                    <span className="label-text">Number*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full max-w-[80px] rounded-none border-[--fg] bg-transparent text-[--fg]"
+                  />
+                </div>
+
+                <div>
+                  <label className="label">
+                    <span className="label-text">Floor</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full max-w-[80px] rounded-none border-[--fg] bg-transparent text-[--fg]"
+                  />
+                </div>
+              </div>
+            </div>
+            {/* Time Inputs */}
+            <div className="flex items-start md:items-end gap-4 w-full flex-col md:flex-row">
+              <div>
+                <label className="label">
+                  <span className="label-text">Time*</span>
+                </label>
+                <select className="select select-bordered w-[295px] rounded-none border-[--fg] bg-transparent text-[--fg]">
+                  <option disabled selected>
+                    Who shot first?
+                  </option>
+                  <option>Han Solo</option>
+                  <option>Greedo</option>
+                </select>
+              </div>
+
+              {/* Checkbox */}
+              <div className="flex">
+                <label className="label cursor-pointer md:pb-3">
+                  <input
+                    type="checkbox"
+                    // checked="checked"
+                    className="checkbox rounded-none border-[--fg] bg-transparent text-[--fg]"
+                  />
+                  <span className="label-text ml-2">As soon as possible</span>
+                </label>
+              </div>
+            </div>
+            {/* Payment Method */}
+            <div className="flex flex-col md:flex-row gap-2">
+              <label className="label">
+                <span className="label-text">Payment</span>
+              </label>
+              <div className="flex gap-3">
+                <input
+                  type="radio"
+                  name="radio"
+                  aria-label="Online Payment"
+                  className="btn normal-case"
+                  checked
+                />
+                <input
+                  type="radio"
+                  name="radio"
+                  aria-label="Card"
+                  className="btn normal-case"
+                />
+                <input
+                  type="radio"
+                  name="radio"
+                  aria-label="Cash"
+                  className="btn normal-case"
+                />
+              </div>
+            </div>
+            {/* TextArea */}
+            <div>
+              <label className="label">
+                <span className="label-text">Observations</span>
+              </label>
+              <textarea className="textarea textarea-bordered w-[295px] max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg]" />
+            </div>
+            {/* Order Button */}
+            <button className="btn btn-outline hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg] rounded-none normal-case">
+              Create Order
+            </button>
           </div>
         </>
       )}

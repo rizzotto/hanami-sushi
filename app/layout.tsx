@@ -9,7 +9,7 @@ const sunday = localFont({
   variable: "--font-title",
 });
 const veles = localFont({
-  src: "./fonts/veles.ttf",
+  src: "./fonts/veles.woff2",
   variable: "--font-primary",
 });
 

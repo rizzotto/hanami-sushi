@@ -44,7 +44,7 @@ export default function Home() {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             // hover:bg-[#f1f1f1] hover:text-[--fg]
-            className="btn btn-outline btn-lg relative hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg]"
+            className="btn btn-outline rounded-none normal-case btn-lg relative hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg]"
           >
             <div className="z-10">Order Now</div>
             {/* {hover && (

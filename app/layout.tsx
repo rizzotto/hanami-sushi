@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import localFont from "next/font/local";
+import { Providers } from "./providers";
 
 const sunday = localFont({
   src: "./fonts/sunday.ttf",
@@ -30,9 +31,11 @@ export default function RootLayout({
       className="max-w-7xl mx-auto h-screen py-10 px-4 scrollbar-thin scrollbar-thumb-neutral-200 scrollbar-track-neutral-400 bg-[#f1f1f1]"
     >
       <body className={`${veles.variable} ${sunday.variable} font-primary`}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <Providers>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

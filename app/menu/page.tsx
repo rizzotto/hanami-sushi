@@ -26,26 +26,124 @@ import Card from "../components/Card";
 
 export default function Menu() {
   const sushis = [
-    { image: hossoTuna, title: "Tuna Hossomaki" },
-    { image: hosso, title: "Salmon Hossomaki" },
-    { image: gunkan, title: "Gunkan" },
-    { image: nigiri, title: "Gunkan" },
-    { image: sashimi, title: "Sashimi" },
-    { image: gunkanSpoon, title: "Gunkan Spoon" },
+    {
+      image: hossoTuna,
+      title: "Tuna Hossomaki",
+      price: "8$",
+      quantity: "8pcs",
+      type: "sushi",
+      id: 1,
+    },
+    {
+      image: hosso,
+      title: "Salmon Hossomaki",
+      price: "12$",
+      quantity: "8pcs",
+      type: "sushi",
+      id: 2,
+    },
+    {
+      image: gunkan,
+      title: "Gunkan",
+      price: "8$",
+      quantity: "2pcs",
+      type: "sushi",
+      id: 3,
+    },
+    {
+      image: nigiri,
+      title: "Nigiri",
+      price: "14$",
+      quantity: "4pcs",
+      type: "sushi",
+      id: 4,
+    },
+    {
+      image: sashimi,
+      title: "Sashimi",
+      price: "20$",
+      quantity: "8pcs",
+      type: "sushi",
+      id: 5,
+    },
+    {
+      image: gunkanSpoon,
+      title: "Gunkan Spoon",
+      price: "8$",
+      quantity: "2pcs",
+      type: "sushi",
+      id: 6,
+    },
   ];
 
   const pokes = [
-    { image: pokeTuna, title: "Tuna Poke" },
-    { image: pokeSalmon, title: "Salmon Poke" },
-    { image: pokeChicken, title: "Chicken Poke" },
-    { image: pokeShrimp, title: "Shrimp Poke" },
+    {
+      image: pokeTuna,
+      title: "Tuna Poke",
+      price: "20$",
+      quantity: "400g",
+      type: "poke",
+      id: 7,
+    },
+    {
+      image: pokeSalmon,
+      title: "Salmon Poke",
+      price: "24$",
+      quantity: "400g",
+      type: "poke",
+      id: 8,
+    },
+    {
+      image: pokeChicken,
+      title: "Chicken Poke",
+      price: "15$",
+      quantity: "400g",
+      type: "poke",
+      id: 9,
+    },
+    {
+      image: pokeShrimp,
+      title: "Shrimp Poke",
+      price: "22$",
+      quantity: "400g",
+      type: "poke",
+      id: 10,
+    },
   ];
 
   const sauces = [
-    { image: ginger, title: "Ginger" },
-    { image: teriyaki, title: "teriyaki" },
-    { image: sweetChilli, title: "Sweet Chilli" },
-    { image: passionFruit, title: "Passion Fruit" },
+    {
+      image: ginger,
+      title: "Ginger",
+      price: "1$",
+      quantity: "25g",
+      type: "sauces",
+      id: 11,
+    },
+    {
+      image: teriyaki,
+      title: "teriyaki",
+      price: "1$",
+      quantity: "30ml",
+      type: "sauces",
+      id: 12,
+    },
+    {
+      image: sweetChilli,
+      title: "Sweet Chilli",
+      price: "1$",
+      quantity: "30ml",
+      type: "sauces",
+      id: 13,
+    },
+    {
+      image: passionFruit,
+      title: "Passion Fruit",
+      price: "1$",
+      quantity: "30ml",
+      type: "sauces",
+      id: 14,
+    },
   ];
 
   return (
@@ -54,7 +152,7 @@ export default function Menu() {
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {sushis.map((sushi, i) => (
           <div className="flex flex-col gap-4" key={`${i}-${sushi}`}>
-            <Card image={sushi.image} title={sushi.title} />
+            <Card item={sushi} />
           </div>
         ))}
       </div>
@@ -67,7 +165,7 @@ export default function Menu() {
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {pokes.map((poke, i) => (
           <div className="flex flex-col gap-4" key={`${i}-${poke}`}>
-            <Card image={poke.image} title={poke.title} />
+            <Card item={poke} />
           </div>
         ))}
       </div>
@@ -80,7 +178,7 @@ export default function Menu() {
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {sauces.map((sauces, i) => (
           <div className="flex flex-col gap-4" key={`${i}-${sauces}`}>
-            <Card image={sauces.image} title={sauces.title} />
+            <Card item={sauces} />
           </div>
         ))}
       </div>

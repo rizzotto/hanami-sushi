@@ -1,41 +1,62 @@
+"use client";
+
+import { useCartContext } from "@/app/context/cart";
 import Image from "next/image";
+import React from "react";
 import { PiShoppingCartSimple } from "react-icons/pi";
+
+const rotationsStick = [
+  "rotate-[-10deg]",
+  "rotate-[-3deg]",
+  "rotate-0",
+  "rotate-1",
+  "rotate-2",
+  "rotate-3",
+  "rotate-6",
+  "rotate-12",
+  "rotate-[30deg]",
+];
+
+const rotationsCard = [
+  "rotate-[-2deg]",
+  "rotate-[-1deg]",
+  "rotate-0",
+  "rotate-1",
+  "rotate-2",
+];
 
 export default function Card({
   actions = true,
-  image,
-  title,
+  item,
 }: {
   actions?: boolean;
-  image: string;
-  title?: string;
+  item: {
+    title: string;
+    image: string;
+  };
 }) {
-  const rotationsStick = [
-    "rotate-[-10deg]",
-    "rotate-[-3deg]",
-    "rotate-0",
-    "rotate-1",
-    "rotate-2",
-    "rotate-3",
-    "rotate-6",
-    "rotate-12",
-    "rotate-[30deg]",
-  ];
+  const { cart, setCart } = useCartContext();
 
-  const rotationsCard = [
-    "rotate-[-2deg]",
-    "rotate-[-1deg]",
-    "rotate-0",
-    "rotate-1",
-    "rotate-2",
-  ];
-
-  const getRandomIndex = () => {
+  const getRandomIndex = React.useCallback(() => {
     return Math.floor(Math.random() * rotationsStick.length);
+  }, []);
+
+  const randomStick = React.useCallback(
+    () => rotationsStick[getRandomIndex()],
+    [getRandomIndex]
+  );
+  const randomCard = React.useCallback(
+    () => rotationsCard[getRandomIndex()],
+    [getRandomIndex]
+  );
+
+  const handleOnClick = () => {
+    const copyCart = [...cart];
+    copyCart.push(item);
+    setCart(copyCart);
   };
 
-  const randomStick = rotationsStick[getRandomIndex()];
-  const randomCard = rotationsCard[getRandomIndex()];
+  const { title, image } = item;
 
   return (
     <>
@@ -60,7 +81,10 @@ export default function Card({
           <div className="px-1 py-2 w-full flex items-center justify-center border-r border-[--fg]">
             4 pcs
           </div>
-          <button className="hover:bg-[--bg] px-1 py-2 w-full flex items-center justify-center">
+          <button
+            onClick={handleOnClick}
+            className="hover:bg-[--bg] px-1 py-2 w-full flex items-center justify-center"
+          >
             <PiShoppingCartSimple size="1.5em" />
           </button>
         </div>

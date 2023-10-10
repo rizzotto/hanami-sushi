@@ -1,41 +1,29 @@
+"use client";
+
 import Image from "next/image";
 import cartTitle from "../assets/cart_title.svg";
 import checkoutTitle from "../assets/checkout_title.svg";
 import Link from "next/link";
 import CartItem from "../components/CartItem";
-import nigiri from "../assets/nigiri.svg";
-import teriyaki from "../assets/teriyaki.svg";
-import gunkan from "../assets/gunkan.svg";
+import { useCartContext } from "../context/cart";
 
 export default function Cart() {
-  const data = [
-    {
-      image: nigiri,
-      price: "12$",
-      quantity: "4pcs",
-      title: "Nigiri",
-      type: "sushi",
-    },
-    {
-      image: teriyaki,
-      price: "1$",
-      quantity: "20ml",
-      title: "Teriyaki",
-      type: "sauces",
-    },
-    {
-      image: gunkan,
-      price: "8$",
-      quantity: "2pcs",
-      title: "Gunkan",
-      type: "sushi",
-    },
-  ];
+  const { cart, setCart } = useCartContext();
+
+  const handleDelete = (id: number) => {
+    const copyCart = [...cart];
+
+    const indexToDelete = copyCart.findIndex((item) => item.id === id);
+    if (indexToDelete !== -1) {
+      copyCart.splice(indexToDelete, 1);
+      setCart(copyCart);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center min-h-[70vh]">
       <Image alt="Cart title" src={cartTitle} objectFit="cover" />
-      {data.length === 0 ? (
+      {cart.length === 0 ? (
         <div className="flex flex-col items-center gap-4 my-auto">
           <div className="text-lg md:text-2xl">
             No Items on Cart. Please check on our Menu
@@ -48,8 +36,12 @@ export default function Cart() {
         </div>
       ) : (
         <>
-          {data.map((item, i) => (
-            <CartItem key={`${item}-${i}`} item={item} />
+          {cart.map((item, i) => (
+            <CartItem
+              onDelete={handleDelete}
+              key={`${item}-${i}`}
+              item={item}
+            />
           ))}
 
           <div className="w-full my-8 flex flex-col items-start justify-start md:max-w-[60%]">

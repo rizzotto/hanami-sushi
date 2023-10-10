@@ -1,10 +1,13 @@
 "use client";
+import { useCartContext } from "@/app/context/cart";
 import Link from "next/link";
 import React from "react";
 import { PiShoppingCartSimple } from "react-icons/pi";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
+
+  const { cart } = useCartContext();
 
   const listenScrollEvent = () => {
     setIsScrolled(window.scrollY > 10 ? true : false);
@@ -59,6 +62,7 @@ export default function Header() {
             </div>
             <div className="px-3 py-2">
               <PiShoppingCartSimple size="1.4em" />
+              {cart.length}
             </div>
           </div>
           <div className="dropdown dropdown-end md:hidden">

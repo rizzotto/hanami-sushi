@@ -1,9 +1,8 @@
 import Card from "../Card";
-import nigiri from "../../assets/nigiri.svg";
-import AiOutlineClose from "react-icons/ai";
 
 export default function CartItem({
   item,
+  onDelete,
 }: {
   item: {
     image: string;
@@ -11,12 +10,18 @@ export default function CartItem({
     type: string;
     quantity: string;
     price: string;
+    id: number;
   };
+  onDelete?: (id: number) => {};
 }) {
+  const handleClick = () => {
+    onDelete?.(item.id);
+  };
+
   return (
     <div className="flex flex-col md:flex-row justify-between w-full items-center m-2">
       <div className="flex items-center w-full justify-evenly mb-3">
-        <Card actions={false} image={item.image} />
+        <Card actions={false} item={item} />
 
         <div className="flex flex-col gap-4 ml-4 md:ml-0">
           <div className="text-xl font-bold">{item.title}</div>
@@ -39,7 +44,10 @@ export default function CartItem({
           {item.price}
         </div>
 
-        <button className="btn btn-circle hover:bg-[--bg]">
+        <button
+          onClick={handleClick}
+          className="btn btn-circle hover:bg-[--bg]"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"

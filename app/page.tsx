@@ -126,7 +126,12 @@ export default function Home() {
           // layout="responsive"
         />
       ) : (
-        <Image alt="Rope" src={rope} objectFit="cover" layout="responsive" />
+        <Image
+          alt="Rope"
+          src={rope}
+          style={{ objectFit: "cover" }}
+          layout="responsive"
+        />
       )}
     </div>
   );

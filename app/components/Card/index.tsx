@@ -1,6 +1,7 @@
 "use client";
 
 import { useCartContext } from "@/app/context/cart";
+import { Data } from "@/app/types/Data";
 import Image from "next/image";
 import React from "react";
 import { PiShoppingCartSimple } from "react-icons/pi";
@@ -30,10 +31,7 @@ export default function Card({
   item,
 }: {
   actions?: boolean;
-  item: {
-    title: string;
-    image: string;
-  };
+  item: Data;
 }) {
   const { cart, setCart } = useCartContext();
 
@@ -41,14 +39,10 @@ export default function Card({
     return Math.floor(Math.random() * rotationsStick.length);
   }, []);
 
-  const randomStick = React.useCallback(
-    () => rotationsStick[getRandomIndex()],
-    [getRandomIndex]
-  );
-  const randomCard = React.useCallback(
-    () => rotationsCard[getRandomIndex()],
-    [getRandomIndex]
-  );
+  const [random, _] = React.useState({
+    stick: rotationsStick[getRandomIndex()],
+    card: rotationsCard[getRandomIndex()],
+  });
 
   const handleOnClick = () => {
     const copyCart = [...cart];
@@ -61,25 +55,25 @@ export default function Card({
   return (
     <>
       <div
-        className={`relative ${randomCard} ${
+        className={`relative ${random.card} ${
           !actions ? "pb-12" : "min-h-[350px]"
         } min-w-[270px] max-w-[270px] w-full p-5 bg-white flex flex-col items-center`}
       >
         <div className="bg-black h-full w-full flex items-center justify-center">
-          <Image alt="food" src={image} objectFit="contain" />
+          <Image alt="food" src={image} style={{ objectFit: "contain" }} />
         </div>
         {actions && <div className="mt-6 text-lg">{title}</div>}
         <div
-          className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] ${randomStick} opacity-60`}
+          className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] ${random.stick} opacity-60`}
         />
       </div>
       {actions && (
         <div className="flex border border-[--fg] items-center mx-3">
           <div className="px-1 py-2 w-full flex items-center justify-center border-r border-[--fg]">
-            4,6$
+            {item.price}$
           </div>
           <div className="px-1 py-2 w-full flex items-center justify-center border-r border-[--fg]">
-            4 pcs
+            {item.quantity}
           </div>
           <button
             onClick={handleOnClick}

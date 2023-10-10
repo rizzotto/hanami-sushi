@@ -29,48 +29,48 @@ export default function Menu() {
     {
       image: hossoTuna,
       title: "Tuna Hossomaki",
-      price: "8$",
-      quantity: "8pcs",
+      price: "8",
+      quantity: "8 pcs",
       type: "sushi",
       id: 1,
     },
     {
       image: hosso,
       title: "Salmon Hossomaki",
-      price: "12$",
-      quantity: "8pcs",
+      price: "12",
+      quantity: "8 pcs",
       type: "sushi",
       id: 2,
     },
     {
       image: gunkan,
       title: "Gunkan",
-      price: "8$",
-      quantity: "2pcs",
+      price: "8",
+      quantity: "2 pcs",
       type: "sushi",
       id: 3,
     },
     {
       image: nigiri,
       title: "Nigiri",
-      price: "14$",
-      quantity: "4pcs",
+      price: "14",
+      quantity: "4 pcs",
       type: "sushi",
       id: 4,
     },
     {
       image: sashimi,
       title: "Sashimi",
-      price: "20$",
-      quantity: "8pcs",
+      price: "20",
+      quantity: "8 pcs",
       type: "sushi",
       id: 5,
     },
     {
       image: gunkanSpoon,
       title: "Gunkan Spoon",
-      price: "8$",
-      quantity: "2pcs",
+      price: "8",
+      quantity: "2 pcs",
       type: "sushi",
       id: 6,
     },
@@ -80,7 +80,7 @@ export default function Menu() {
     {
       image: pokeTuna,
       title: "Tuna Poke",
-      price: "20$",
+      price: "20",
       quantity: "400g",
       type: "poke",
       id: 7,
@@ -88,7 +88,7 @@ export default function Menu() {
     {
       image: pokeSalmon,
       title: "Salmon Poke",
-      price: "24$",
+      price: "24",
       quantity: "400g",
       type: "poke",
       id: 8,
@@ -96,7 +96,7 @@ export default function Menu() {
     {
       image: pokeChicken,
       title: "Chicken Poke",
-      price: "15$",
+      price: "15",
       quantity: "400g",
       type: "poke",
       id: 9,
@@ -104,7 +104,7 @@ export default function Menu() {
     {
       image: pokeShrimp,
       title: "Shrimp Poke",
-      price: "22$",
+      price: "22",
       quantity: "400g",
       type: "poke",
       id: 10,
@@ -115,7 +115,7 @@ export default function Menu() {
     {
       image: ginger,
       title: "Ginger",
-      price: "1$",
+      price: "1",
       quantity: "25g",
       type: "sauces",
       id: 11,
@@ -123,7 +123,7 @@ export default function Menu() {
     {
       image: teriyaki,
       title: "teriyaki",
-      price: "1$",
+      price: "1",
       quantity: "30ml",
       type: "sauces",
       id: 12,
@@ -131,7 +131,7 @@ export default function Menu() {
     {
       image: sweetChilli,
       title: "Sweet Chilli",
-      price: "1$",
+      price: "1",
       quantity: "30ml",
       type: "sauces",
       id: 13,
@@ -139,7 +139,7 @@ export default function Menu() {
     {
       image: passionFruit,
       title: "Passion Fruit",
-      price: "1$",
+      price: "1",
       quantity: "30ml",
       type: "sauces",
       id: 14,
@@ -148,7 +148,12 @@ export default function Menu() {
 
   return (
     <div className="mt-6 flex flex-col items-center justify-center gap-3">
-      <Image className="m-6" alt="Menu Title" src={title} objectFit="cover" />
+      <Image
+        className="m-6"
+        alt="Menu Title"
+        src={title}
+        style={{ objectFit: "cover" }}
+      />
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {sushis.map((sushi, i) => (
           <div className="flex flex-col gap-4" key={`${i}-${sushi}`}>
@@ -160,7 +165,7 @@ export default function Menu() {
         className="m-6"
         alt="Poke Title"
         src={pokeTitle}
-        objectFit="cover"
+        style={{ objectFit: "cover" }}
       />
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {pokes.map((poke, i) => (
@@ -173,7 +178,7 @@ export default function Menu() {
         className="m-6"
         alt="Sauce Title"
         src={saucesTitle}
-        objectFit="cover"
+        style={{ objectFit: "cover" }}
       />
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {sauces.map((sauces, i) => (

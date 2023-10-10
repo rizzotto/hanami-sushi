@@ -8,7 +8,7 @@ import CartItem from "../components/CartItem";
 import { useCartContext } from "../context/cart";
 
 export default function Cart() {
-  const { cart, setCart } = useCartContext();
+  const { cart, setCart, getCartGrouped, getCartPrice } = useCartContext();
 
   const handleDelete = (id: number) => {
     const copyCart = [...cart];
@@ -20,23 +20,25 @@ export default function Cart() {
     }
   };
 
+  const groupedCart = getCartGrouped();
+
   return (
     <div className="flex flex-col items-center min-h-[70vh]">
-      <Image alt="Cart title" src={cartTitle} objectFit="cover" />
+      <Image alt="Cart title" src={cartTitle} style={{ objectFit: "cover" }} />
       {cart.length === 0 ? (
         <div className="flex flex-col items-center gap-4 my-auto">
           <div className="text-lg md:text-2xl">
             No Items on Cart. Please check on our Menu
           </div>
           <Link href="/menu">
-            <button className="btn btn-outline btn-lg relative hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg]">
+            <button className="btn btn-outline rounded-none normal-case btn-lg relative hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg]">
               <div className="z-10">Order Now</div>
             </button>
           </Link>
         </div>
       ) : (
         <>
-          {cart.map((item, i) => (
+          {groupedCart.map((item, i) => (
             <CartItem
               onDelete={handleDelete}
               key={`${item}-${i}`}
@@ -48,7 +50,7 @@ export default function Cart() {
             <div className="flex items-end w-full justify-center my-3">
               <div className="font-bold ">Cost Delivery</div>
               <div className="w-full border border-dashed border-[--fg]"></div>
-              <div className="ml-4 px-6 py-3 border border-[--fg] w-full max-w-[100px]">
+              <div className="ml-4 px-6 text-center py-3 border border-[--fg] w-full max-w-[100px]">
                 12$
               </div>
             </div>
@@ -66,14 +68,18 @@ export default function Cart() {
             <div className="flex items-end w-full justify-center mt-12 ">
               <div className="font-bold ">Total</div>
               <div className="w-full border border-dashed border-[--fg]"></div>
-              <div className="px-6 py-3 ml-4 border border-[--fg] w-full max-w-[100px]">
-                23,5$
+              <div className="px-6 py-3 ml-4 border text-center border-[--fg] w-full max-w-[100px]">
+                {parseInt(getCartPrice() + 12)}$
               </div>
             </div>
           </div>
 
           {/* Checkout */}
-          <Image alt="Checkout title" src={checkoutTitle} objectFit="cover" />
+          <Image
+            alt="Checkout title"
+            src={checkoutTitle}
+            style={{ objectFit: "cover" }}
+          />
           <div className="flex flex-col gap-3 items-start mb-12">
             <div className="flex gap-4 w-full flex-col md:flex-row">
               {/* Name Input */}

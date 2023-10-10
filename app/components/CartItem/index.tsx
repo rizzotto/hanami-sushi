@@ -1,22 +1,59 @@
+import { Data } from "@/app/types/Data";
 import Card from "../Card";
+import { useCartContext } from "@/app/context/cart";
+import React from "react";
 
 export default function CartItem({
   item,
   onDelete,
 }: {
-  item: {
-    image: string;
-    title: string;
-    type: string;
-    quantity: string;
-    price: string;
-    id: number;
-  };
+  item: Data;
   onDelete?: (id: number) => void;
 }) {
+  const { cart, setCart } = useCartContext();
+
   const handleClick = () => {
     onDelete?.(item.id);
   };
+
+  // not working correctly, should increase by its value and not exponentially
+  const handleAdd = React.useCallback(() => {
+    const copyCart = [...cart];
+    const [quantity, suff] = item.quantity.split(" ");
+
+    const index = copyCart.indexOf(item);
+
+    if (index !== -1) {
+      copyCart[index] = {
+        ...item,
+        price: (parseInt(item.price) + parseInt(item.price)).toString(),
+        quantity: `${(
+          parseInt(quantity) + parseInt(quantity)
+        ).toString()} ${suff}`,
+      };
+    }
+
+    setCart(copyCart);
+  }, [cart, item, setCart]);
+
+  const handleMinus = React.useCallback(() => {
+    const copyCart = [...cart];
+    const [quantity, suff] = item.quantity.split(" ");
+
+    const index = copyCart.indexOf(item);
+
+    if (index !== -1) {
+      copyCart[index] = {
+        ...item,
+        price: (parseInt(item.price) - parseInt(item.price)).toString(),
+        quantity: `${(
+          parseInt(quantity) - parseInt(quantity)
+        ).toString()} ${suff}`,
+      };
+    }
+
+    setCart(copyCart);
+  }, [cart, item, setCart]);
 
   return (
     <div className="flex flex-col md:flex-row justify-between w-full items-center m-2">
@@ -33,15 +70,20 @@ export default function CartItem({
         <div className="flex items-center border border-[--fg]">
           <div className="p-3 border-r border-[--fg]">{item.quantity}</div>
           <div className="flex flex-col items-center justify-center">
-            <button className="px-6 border-b border-[--fg] hover:bg-[--bg]">
+            <button
+              onClick={handleAdd}
+              className="px-6 border-b border-[--fg] hover:bg-[--bg]"
+            >
               +
             </button>
-            <button className="px-[25px] hover:bg-[--bg]">-</button>
+            <button onClick={handleMinus} className="px-[25px] hover:bg-[--bg]">
+              -
+            </button>
           </div>
         </div>
 
         <div className="flex items-center justify-center px-6 py-3 border border-[--fg] w-full max-w-[80px]">
-          {item.price}
+          {item.price}$
         </div>
 
         <button

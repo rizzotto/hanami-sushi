@@ -62,13 +62,13 @@ export default function Card({
     <>
       <div
         className={`relative ${randomCard} ${
-          !title ? "pb-12" : "min-h-[350px]"
+          !actions ? "pb-12" : "min-h-[350px]"
         } min-w-[270px] max-w-[270px] w-full p-5 bg-white flex flex-col items-center`}
       >
         <div className="bg-black h-full w-full flex items-center justify-center">
           <Image alt="food" src={image} objectFit="contain" />
         </div>
-        {title && <div className="mt-6 text-lg">{title}</div>}
+        {actions && <div className="mt-6 text-lg">{title}</div>}
         <div
           className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] ${randomStick} opacity-60`}
         />

@@ -12,7 +12,7 @@ export default function CartItem({
     price: string;
     id: number;
   };
-  onDelete?: (id: number) => {};
+  onDelete?: (id: number) => void;
 }) {
   const handleClick = () => {
     onDelete?.(item.id);
@@ -20,10 +20,10 @@ export default function CartItem({
 
   return (
     <div className="flex flex-col md:flex-row justify-between w-full items-center m-2">
-      <div className="flex items-center w-full justify-evenly mb-3">
+      <div className="flex flex-col sm:flex-row items-center w-full justify-evenly mb-3">
         <Card actions={false} item={item} />
 
-        <div className="flex flex-col gap-4 ml-4 md:ml-0">
+        <div className="flex flex-col gap-4 mt-4 sm:mt-0 sm:ml-4 w-full max-w-[200px]">
           <div className="text-xl font-bold">{item.title}</div>
           <div>{item.type}</div>
         </div>

@@ -29,9 +29,11 @@ const rotationsCard = [
 export default function Card({
   actions = true,
   item,
+  small,
 }: {
   actions?: boolean;
   item: Data;
+  small?: boolean;
 }) {
   const { cart, setCart } = useCartContext();
 
@@ -57,15 +59,25 @@ export default function Card({
       <div
         className={`relative ${random.card} ${
           !actions ? "pb-12" : "min-h-[350px]"
-        } min-w-[270px] max-w-[270px] w-full p-5 bg-white flex flex-col items-center`}
+        } ${
+          small
+            ? "w-32 h-26 p-2 pb-6"
+            : "min-w-[270px] max-w-[270px] w-full p-5"
+        } bg-white flex flex-col items-center`}
       >
-        <div className="bg-black h-full w-full flex items-center justify-center">
+        <div
+          className={`bg-black ${
+            small ? "h-22 w-28" : "h-full w-full"
+          }  flex items-center justify-center`}
+        >
           <Image alt="food" src={image} style={{ objectFit: "contain" }} />
         </div>
         {actions && <div className="mt-6 text-lg">{title}</div>}
-        <div
-          className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] ${random.stick} opacity-60`}
-        />
+        {!small && (
+          <div
+            className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] ${random.stick} opacity-60`}
+          />
+        )}
       </div>
       {actions && (
         <div className="flex border border-[--fg] items-center mx-3">

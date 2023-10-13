@@ -6,9 +6,11 @@ import React from "react";
 export default function CartItem({
   item,
   onDelete,
+  small = false,
 }: {
   item: Data;
   onDelete?: (id: number) => void;
+  small?: boolean;
 }) {
   const { getCartGrouped, setCart } = useCartContext();
 
@@ -54,14 +56,67 @@ export default function CartItem({
     setCart(copyCart);
   }, [cart, item, setCart]);
 
-  return (
-    <div className="flex flex-col md:flex-row justify-between w-full items-center m-2">
+  const renderActions = small ? (
+    <div className="flex items-center">
+      <div className="flex flex-col sm:flex-row items-center w-full justify-center mb-2">
+        <Card small={small} actions={false} item={item} />
+      </div>
+
+      <div className="flex items-end flex-row w-full justify-evenly gap-3">
+        <div className="ml-3">
+          <div className="flex flex-col text-start items-start mb-3 w-full">
+            <div className="text-md font-bold">{item.title}</div>
+          </div>
+          <div className="flex items-center border border-[--fg]">
+            <div className="p-3 border-r border-[--fg] min-w-[82px] text-center">
+              {item.price}$
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <button
+                onClick={handleAdd}
+                className="px-6 border-b border-[--fg] hover:bg-[--bg]"
+              >
+                <div className="min-w-[12px]">+</div>
+              </button>
+              <button
+                onClick={item.price > "0" ? handleMinus : undefined}
+                aria-disabled={item.price <= "0"}
+                className="px-6 hover:bg-[--bg] aria-disabled:bg-[#9b9b9b] aria-disabled:opacity-40 aria-disabled:cursor-not-allowed aria-disabled:hover:bg-[#9b9b9b]"
+              >
+                <div className="min-w-[12px]">-</div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button
+          onClick={handleClick}
+          className="btn btn-square rounded-none border border-[--fg] hover:bg-[--bg] hover:border-[--fg]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="#1b1b1b"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  ) : (
+    <>
       <div className="flex flex-col sm:flex-row items-center w-full justify-evenly mb-3">
-        <Card actions={false} item={item} />
+        <Card small={small} actions={false} item={item} />
 
         <div className="flex flex-col items-center sm:items-start gap-2 sm:gap-4 mb-4 sm:mb-0 mt-4 sm:mt-0 sm:ml-6 w-full max-w-[200px] min-w-[110px]">
           <div className="text-xl font-bold">{item.title}</div>
-          <div>{item.type}</div>
+          {item.type}
         </div>
       </div>
 
@@ -93,7 +148,7 @@ export default function CartItem({
 
         <button
           onClick={handleClick}
-          className="btn btn-circle hover:bg-[--bg]"
+          className="btn btn-square rounded-none border border-[--fg] hover:bg-[--bg] hover:border-[--fg]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -111,6 +166,12 @@ export default function CartItem({
           </svg>
         </button>
       </div>
+    </>
+  );
+
+  return (
+    <div className="flex flex-col md:flex-row justify-between w-full items-center m-2">
+      {renderActions}
     </div>
   );
 }

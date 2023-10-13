@@ -41,10 +41,6 @@ export default function Cart() {
 
   const groupedCart = getCartGrouped();
 
-  const ErrorText = ({ text }: { text: string }) => (
-    <div className="text-red-500 text-sm">{text}</div>
-  );
-
   return (
     <div className="flex flex-col items-center min-h-[70vh]">
       <Image alt="Cart title" src={cartTitle} style={{ objectFit: "cover" }} />

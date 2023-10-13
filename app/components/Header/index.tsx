@@ -3,11 +3,12 @@ import { useCartContext } from "@/app/context/cart";
 import Link from "next/link";
 import React from "react";
 import { PiShoppingCartSimple } from "react-icons/pi";
+import Dropdown from "../Dropdown";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
-  const { getCartPrice } = useCartContext();
+  const { getCartPrice, cart } = useCartContext();
 
   const listenScrollEvent = () => {
     setIsScrolled(window.scrollY > 10 ? true : false);
@@ -19,6 +20,14 @@ export default function Header() {
       window.removeEventListener("scroll", listenScrollEvent);
     };
   }, []);
+
+  const CartButton = () => (
+    <Link href="/cart" tabIndex={0}>
+      <div className="px-3 py-[9px] hover:bg-[--bg] w-full flex items-center justify-center">
+        <PiShoppingCartSimple size="1.4em" />
+      </div>
+    </Link>
+  );
 
   return (
     <header
@@ -60,11 +69,13 @@ export default function Header() {
             <div className="px-3 py-2 text-[--fg] text-center min-w-[64px] border-r border-[--fg] font-semibold">
               {getCartPrice()}$
             </div>
-            <Link href="/cart">
-              <div className="px-3 py-[9px] hover:bg-[--bg] w-full flex items-center justify-center">
-                <PiShoppingCartSimple size="1.4em" />
-              </div>
-            </Link>
+            {cart.length !== 0 ? (
+              <Dropdown>
+                <CartButton />
+              </Dropdown>
+            ) : (
+              <CartButton />
+            )}
           </div>
           <div className="dropdown dropdown-end md:hidden">
             <label tabIndex={0} className="btn btn-ghost btn-circle">

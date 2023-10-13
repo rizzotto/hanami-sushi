@@ -7,7 +7,7 @@ import { PiShoppingCartSimple } from "react-icons/pi";
 export default function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
-  const { cart, getCartPrice } = useCartContext();
+  const { getCartPrice } = useCartContext();
 
   const listenScrollEvent = () => {
     setIsScrolled(window.scrollY > 10 ? true : false);
@@ -57,7 +57,7 @@ export default function Header() {
         </div>
         <div className="navbar-end">
           <div className="flex items-center mr-2 border border-[--fg]">
-            <div className="px-3 py-2 text-[--fg] text-center min-w-[64px] border-r border-[--fg]">
+            <div className="px-3 py-2 text-[--fg] text-center min-w-[64px] border-r border-[--fg] font-semibold">
               {getCartPrice()}$
             </div>
             <Link href="/cart">

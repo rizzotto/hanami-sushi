@@ -73,7 +73,7 @@ export default function Card({
             {item.price}$
           </div>
           <div className="px-1 py-2 w-full flex items-center justify-center border-r border-[--fg]">
-            {item.quantity}
+            {item.quantity} {item.suffixQuantity}
           </div>
           <button
             onClick={handleOnClick}

@@ -26,7 +26,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const groupedCart: Data[] = [];
 
     cart.forEach((item) => {
-      const [quantity, suff] = item.quantity.split(" ");
       if (groupedCart.includes(item)) {
         const index = groupedCart.indexOf(item);
 
@@ -34,10 +33,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         if (index !== -1) {
           groupedCart[index] = {
             ...item,
-            price: (parseInt(item.price) + parseInt(item.price)).toString(),
-            quantity: `${(
-              parseInt(quantity) + parseInt(quantity)
-            ).toString()} ${suff}`,
+            price: (
+              parseInt(item.price) + parseInt(item.solidPrice)
+            ).toString(),
+            quantity: (
+              parseInt(item.quantity) + parseInt(item.solidQuantity)
+            ).toString(),
           };
         }
       } else {

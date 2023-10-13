@@ -10,26 +10,26 @@ export default function CartItem({
   item: Data;
   onDelete?: (id: number) => void;
 }) {
-  const { cart, setCart } = useCartContext();
+  const { getCartGrouped, setCart } = useCartContext();
 
   const handleClick = () => {
     onDelete?.(item.id);
   };
 
-  // not working correctly, should increase by its value and not exponentially
+  const cart = getCartGrouped();
+
   const handleAdd = React.useCallback(() => {
     const copyCart = [...cart];
-    const [quantity, suff] = item.quantity.split(" ");
 
     const index = copyCart.indexOf(item);
 
     if (index !== -1) {
       copyCart[index] = {
         ...item,
-        price: (parseInt(item.price) + parseInt(item.price)).toString(),
-        quantity: `${(
-          parseInt(quantity) + parseInt(quantity)
-        ).toString()} ${suff}`,
+        price: (parseInt(item.price) + parseInt(item.solidPrice)).toString(),
+        quantity: (
+          parseInt(item.quantity) + parseInt(item.solidQuantity)
+        ).toString(),
       };
     }
 
@@ -38,17 +38,16 @@ export default function CartItem({
 
   const handleMinus = React.useCallback(() => {
     const copyCart = [...cart];
-    const [quantity, suff] = item.quantity.split(" ");
 
     const index = copyCart.indexOf(item);
 
     if (index !== -1) {
       copyCart[index] = {
         ...item,
-        price: (parseInt(item.price) - parseInt(item.price)).toString(),
-        quantity: `${(
-          parseInt(quantity) - parseInt(quantity)
-        ).toString()} ${suff}`,
+        price: (parseInt(item.price) - parseInt(item.solidPrice)).toString(),
+        quantity: (
+          parseInt(item.quantity) - parseInt(item.solidQuantity)
+        ).toString(),
       };
     }
 
@@ -60,7 +59,7 @@ export default function CartItem({
       <div className="flex flex-col sm:flex-row items-center w-full justify-evenly mb-3">
         <Card actions={false} item={item} />
 
-        <div className="flex flex-col gap-4 mt-4 sm:mt-0 sm:ml-4 w-full max-w-[200px]">
+        <div className="flex flex-col items-center sm:items-start gap-2 sm:gap-4 mb-4 sm:mb-0 mt-4 sm:mt-0 sm:ml-6 w-full max-w-[200px] min-w-[110px]">
           <div className="text-xl font-bold">{item.title}</div>
           <div>{item.type}</div>
         </div>
@@ -68,21 +67,27 @@ export default function CartItem({
 
       <div className="flex items-center w-full justify-evenly">
         <div className="flex items-center border border-[--fg]">
-          <div className="p-3 border-r border-[--fg]">{item.quantity}</div>
+          <div className="p-3 border-r border-[--fg] min-w-[82px] text-center">
+            {item.quantity} {item.suffixQuantity}
+          </div>
           <div className="flex flex-col items-center justify-center">
             <button
               onClick={handleAdd}
               className="px-6 border-b border-[--fg] hover:bg-[--bg]"
             >
-              +
+              <div className="min-w-[12px]">+</div>
             </button>
-            <button onClick={handleMinus} className="px-[25px] hover:bg-[--bg]">
-              -
+            <button
+              onClick={item.price > "0" ? handleMinus : undefined}
+              aria-disabled={item.price <= "0"}
+              className="px-6 hover:bg-[--bg] aria-disabled:bg-[#9b9b9b] aria-disabled:opacity-40 aria-disabled:cursor-not-allowed aria-disabled:hover:bg-[#9b9b9b]"
+            >
+              <div className="min-w-[12px]">-</div>
             </button>
           </div>
         </div>
 
-        <div className="flex items-center justify-center px-6 py-3 border border-[--fg] w-full max-w-[80px]">
+        <div className="flex items-center justify-center px-6 py-3 border border-[--fg] w-full max-w-[90px] min-w-[82px]">
           {item.price}$
         </div>
 

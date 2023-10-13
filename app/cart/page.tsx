@@ -6,9 +6,19 @@ import checkoutTitle from "../assets/checkout_title.svg";
 import Link from "next/link";
 import CartItem from "../components/CartItem";
 import { useCartContext } from "../context/cart";
+import { useForm, Controller } from "react-hook-form";
+import React from "react";
 
 export default function Cart() {
   const { cart, setCart, getCartGrouped, getCartPrice } = useCartContext();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const [payment, setPayment] = React.useState("online");
 
   const handleDelete = (id: number) => {
     const copyCart = [...cart];
@@ -20,7 +30,20 @@ export default function Cart() {
     }
   };
 
+  const onSubmit = (data) => {
+    // You can access form data here
+    console.log(data);
+  };
+
+  const handlePayment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPayment(e.target.value);
+  };
+
   const groupedCart = getCartGrouped();
+
+  const ErrorText = ({ text }: { text: string }) => (
+    <div className="text-red-500 text-sm">{text}</div>
+  );
 
   return (
     <div className="flex flex-col items-center min-h-[70vh]">
@@ -80,130 +103,217 @@ export default function Cart() {
             src={checkoutTitle}
             style={{ objectFit: "cover" }}
           />
-          <div className="flex flex-col gap-3 items-start mb-12">
-            <div className="flex gap-4 w-full flex-col md:flex-row">
-              {/* Name Input */}
-              <div>
-                <label className="label">
-                  <span className="label-text">Your Name*</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg]"
-                />
-              </div>
-
-              {/* Phone Input */}
-              <div>
-                <label className="label">
-                  <span className="label-text">Phone Number*</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg]"
-                />
-              </div>
-            </div>
-            {/* Street Inputs */}
-            <div className="flex gap-4 w-full flex-col md:flex-row">
-              <div>
-                <label className="label">
-                  <span className="label-text">Street*</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full max-w-xs rounded-none border-[--fg] bg-transparent text-[--fg]"
-                />
-              </div>
-
-              <div className="flex gap-4">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-3 items-start mb-12">
+              <div className="flex gap-4 w-full flex-col md:flex-row">
+                {/* Name Input */}
                 <div>
                   <label className="label">
-                    <span className="label-text">Number*</span>
+                    <span className="label-text">Your Name*</span>
                   </label>
-                  <input
-                    type="text"
-                    className="input input-bordered w-full max-w-[80px] rounded-none border-[--fg] bg-transparent text-[--fg]"
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="text"
+                        className="input input-bordered w-full max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg] placeholder:text-red-500"
+                        placeholder={errors.name && "Name is required"}
+                      />
+                    )}
+                    rules={{ required: "Name is required" }}
                   />
                 </div>
 
+                {/* Phone Input */}
                 <div>
                   <label className="label">
-                    <span className="label-text">Floor</span>
+                    <span className="label-text">Phone Number*</span>
                   </label>
-                  <input
-                    type="text"
-                    className="input input-bordered w-full max-w-[80px] rounded-none border-[--fg] bg-transparent text-[--fg]"
+                  <Controller
+                    name="phoneNumber"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="text"
+                        className="input input-bordered w-full max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg] placeholder:text-red-500"
+                        placeholder={
+                          errors.phoneNumber && "Phone Number is required"
+                        }
+                      />
+                    )}
+                    rules={{ required: "Phone Number is required" }}
                   />
                 </div>
               </div>
-            </div>
-            {/* Time Inputs */}
-            <div className="flex items-start md:items-end gap-4 w-full flex-col md:flex-row">
-              <div>
-                <label className="label">
-                  <span className="label-text">Time*</span>
-                </label>
-                <select className="select select-bordered w-[295px] rounded-none border-[--fg] bg-transparent text-[--fg]">
-                  <option disabled selected>
-                    Who shot first?
-                  </option>
-                  <option>Han Solo</option>
-                  <option>Greedo</option>
-                </select>
+              {/* Street Inputs */}
+              <div className="flex gap-4 w-full flex-col md:flex-row">
+                <div>
+                  <label className="label">
+                    <span className="label-text">Street*</span>
+                  </label>
+                  <Controller
+                    name="street"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="text"
+                        className="input input-bordered w-full max-w-xs rounded-none border-[--fg] bg-transparent text-[--fg] placeholder:text-red-500"
+                        placeholder={errors.street && "Street is required"}
+                      />
+                    )}
+                    rules={{ required: "Street is required" }}
+                  />
+                </div>
+
+                <div className="flex gap-4">
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Number*</span>
+                    </label>
+                    <Controller
+                      name="number"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          className="input input-bordered w-full max-w-[80px] rounded-none border-[--fg] bg-transparent text-[--fg] placeholder:text-red-500"
+                          placeholder={errors.number && "Req"}
+                        />
+                      )}
+                      rules={{ required: "Number is required" }}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Floor</span>
+                    </label>
+                    <Controller
+                      name="floor"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          className="input input-bordered w-full max-w-[80px] rounded-none border-[--fg] bg-transparent text-[--fg]"
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* Time Inputs */}
+              <div className="flex items-start md:items-end gap-4 w-full flex-col md:flex-row">
+                <div>
+                  <label className="label">
+                    <span className="label-text">Time*</span>
+                  </label>
+                  <Controller
+                    name="time"
+                    control={control}
+                    render={({ field }) => (
+                      <select
+                        {...field}
+                        className="select select-bordered w-[295px] rounded-none border-[--fg] bg-transparent text-[--fg] placeholder:text-red-500"
+                        placeholder={errors.time && "Time is required"}
+                      >
+                        <option value="" disabled>
+                          Who shot first?
+                        </option>
+                        <option value="Han Solo">Han Solo</option>
+                        <option value="Greedo">Greedo</option>
+                      </select>
+                    )}
+                    rules={{ required: "Time is required" }}
+                  />
+                </div>
+
+                {/* Checkbox */}
+                <div className="flex">
+                  <label className="label cursor-pointer md:pb-3">
+                    <Controller
+                      name="asap"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="checkbox"
+                          className="checkbox rounded-none border-[--fg] bg-transparent text-[--fg]"
+                        />
+                      )}
+                    />
+                    <span className="label-text ml-2">As soon as possible</span>
+                  </label>
+                </div>
               </div>
 
-              {/* Checkbox */}
-              <div className="flex">
-                <label className="label cursor-pointer md:pb-3">
-                  <input
-                    type="checkbox"
-                    // checked="checked"
-                    className="checkbox rounded-none border-[--fg] bg-transparent text-[--fg]"
-                  />
-                  <span className="label-text ml-2">As soon as possible</span>
+              {/* Payment Method */}
+              <div className="flex flex-col md:flex-row gap-2">
+                <label className="label">
+                  <span className="label-text">Payment</span>
                 </label>
+                <div className="flex gap-3">
+                  <input
+                    type="radio"
+                    name="radio"
+                    onChange={handlePayment}
+                    value="online"
+                    checked={payment === "online"}
+                    aria-label="Online Payment"
+                    className="btn normal-case"
+                  />
+                  <input
+                    type="radio"
+                    name="radio"
+                    checked={payment === "card"}
+                    onChange={handlePayment}
+                    value="card"
+                    aria-label="Card"
+                    className="btn normal-case"
+                  />
+                  <input
+                    type="radio"
+                    name="radio"
+                    checked={payment === "cash"}
+                    onChange={handlePayment}
+                    value="cash"
+                    aria-label="Cash"
+                    className="btn normal-case"
+                  />
+                </div>
               </div>
-            </div>
-            {/* Payment Method */}
-            <div className="flex flex-col md:flex-row gap-2">
-              <label className="label">
-                <span className="label-text">Payment</span>
-              </label>
-              <div className="flex gap-3">
-                <input
-                  type="radio"
-                  name="radio"
-                  aria-label="Online Payment"
-                  className="btn normal-case"
-                  checked
-                />
-                <input
-                  type="radio"
-                  name="radio"
-                  aria-label="Card"
-                  className="btn normal-case"
-                />
-                <input
-                  type="radio"
-                  name="radio"
-                  aria-label="Cash"
-                  className="btn normal-case"
+
+              {/* TextArea */}
+              <div>
+                <label className="label">
+                  <span className="label-text">Observations</span>
+                </label>
+                <Controller
+                  name="observations"
+                  control={control}
+                  render={({ field }) => (
+                    <textarea
+                      {...field}
+                      className="textarea textarea-bordered w-[295px] max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg]"
+                    />
+                  )}
                 />
               </div>
+
+              {/* Order Button */}
+              <button
+                type="submit"
+                className="btn btn-outline hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg] rounded-none normal-case"
+              >
+                Create Order
+              </button>
             </div>
-            {/* TextArea */}
-            <div>
-              <label className="label">
-                <span className="label-text">Observations</span>
-              </label>
-              <textarea className="textarea textarea-bordered w-[295px] max-w-sm rounded-none border-[--fg] bg-transparent text-[--fg]" />
-            </div>
-            {/* Order Button */}
-            <button className="btn btn-outline hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg] rounded-none normal-case">
-              Create Order
-            </button>
-          </div>
+          </form>
         </>
       )}
     </div>

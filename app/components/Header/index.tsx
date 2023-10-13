@@ -31,8 +31,10 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky z-10 top-3 transition-all animate-slide-in-down ${
-        isScrolled ? "bg-[#BBB2A3] rounded-md shadow-md" : "bg-transparent"
+      className={`sticky z-10 top-3 transition-all animate-slide-in-down rounded-none ${
+        isScrolled
+          ? "bg-[#c9c8c8] rounded-md shadow-md border border-[--fg]"
+          : "bg-transparent"
       }`}
     >
       <div className="navbar">

@@ -56,11 +56,10 @@ export default function Card({
   const { title, image } = item;
 
   return (
-    <div
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
+    <>
       <div
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
         className={`relative ${random.card} ${
           !actions ? "pb-12" : "min-h-[320px]"
         } ${
@@ -103,12 +102,12 @@ export default function Card({
           </div>
           <button
             onClick={handleOnClick}
-            className="hover:bg-[--bg] px-1 py-2 w-full flex items-center justify-center"
+            className="hover:bg-[--bg] transition-all px-1 py-2 w-full flex items-center justify-center"
           >
             <PiShoppingCartSimple size="1.5em" />
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }

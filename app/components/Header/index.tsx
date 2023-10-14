@@ -23,7 +23,7 @@ export default function Header() {
 
   const CartButton = () => (
     <Link href="/cart" tabIndex={0}>
-      <div className="px-3 py-[9px] hover:bg-[--bg] w-full flex items-center justify-center">
+      <div className="px-3 py-[9px] transition-all hover:bg-[--bg] w-full flex items-center justify-center">
         <PiShoppingCartSimple size="1.4em" />
       </div>
     </Link>

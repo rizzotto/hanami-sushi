@@ -62,7 +62,7 @@ export default function Card({
     >
       <div
         className={`relative ${random.card} ${
-          !actions ? "pb-12" : "min-h-[350px]"
+          !actions ? "pb-12" : "min-h-[320px]"
         } ${
           small
             ? "w-32 h-26 p-2 pb-6"
@@ -94,7 +94,7 @@ export default function Card({
         )}
       </div>
       {actions && (
-        <div className="flex border border-[--fg] items-center mx-3">
+        <div className="flex border border-[--fg] items-center m-3">
           <div className="px-1 py-2 w-full flex items-center justify-center border-r border-[--fg]">
             {item.price}$
           </div>

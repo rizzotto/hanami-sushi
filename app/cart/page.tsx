@@ -58,7 +58,7 @@ export default function Cart() {
 
   const [payment, setPayment] = React.useState("online");
   const [asap, setAsap] = React.useState(false);
-  const { push } = useRouter();
+  const router = useRouter();
 
   const handleDelete = (id: number) => {
     const copyCart = [...cart];
@@ -70,9 +70,15 @@ export default function Cart() {
     }
   };
 
+  function random() {
+    const min = 10000000;
+    const max = 99999999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   const onSubmit = (data) => {
     console.log(data);
-    push("/order");
+    router.push(`/order/${random()}-${data.time}`);
   };
 
   const handlePayment = (e: React.ChangeEvent<HTMLInputElement>) => {

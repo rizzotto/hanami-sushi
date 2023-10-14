@@ -8,7 +8,9 @@ import Dropdown from "../Dropdown";
 export default function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
-  const { getCartPrice, cart } = useCartContext();
+  const { getCartPrice, getCartGrouped } = useCartContext();
+
+  const cart = getCartGrouped();
 
   const listenScrollEvent = () => {
     setIsScrolled(window.scrollY > 10 ? true : false);
@@ -23,8 +25,13 @@ export default function Header() {
 
   const CartButton = () => (
     <Link href="/cart" tabIndex={0}>
-      <div className="px-3 py-[9px] transition-all hover:bg-[--bg] w-full flex items-center justify-center">
+      <div className="px-3 py-[9px] transition-all relative hover:bg-[--bg] w-full flex items-center justify-center">
         <PiShoppingCartSimple size="1.4em" />
+        {cart.length > 0 && (
+          <div className="w-6 h-6 transition-all ease-in flex items-center justify-center rounded-full bg-[#f1803f] shadow-md absolute right-[-9px] top-[-9px]">
+            <span className="text-white">{cart.length}</span>
+          </div>
+        )}
       </div>
     </Link>
   );

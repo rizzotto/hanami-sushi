@@ -1,11 +1,12 @@
 export type Data = {
+  description: string;
+  id: number;
   image: string;
-  title: string;
-  type: string;
+  price: string;
   quantity: string;
+  solidPrice: string;
   solidQuantity: string;
   suffixQuantity: string;
-  price: string;
-  solidPrice: string;
-  id: number;
+  title: string;
+  type: string;
 };

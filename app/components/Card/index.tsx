@@ -36,6 +36,7 @@ export default function Card({
   small?: boolean;
 }) {
   const { cart, setCart } = useCartContext();
+  const [hover, setHover] = React.useState(false);
 
   const getRandomIndex = React.useCallback(() => {
     return Math.floor(Math.random() * rotationsStick.length);
@@ -55,7 +56,10 @@ export default function Card({
   const { title, image } = item;
 
   return (
-    <>
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       <div
         className={`relative ${random.card} ${
           !actions ? "pb-12" : "min-h-[350px]"
@@ -66,11 +70,21 @@ export default function Card({
         } bg-white flex flex-col items-center`}
       >
         <div
-          className={`bg-black ${
+          className={`bg-black relative ${
             small ? "h-22 w-28" : "h-full w-full"
           }  flex items-center justify-center`}
         >
-          <Image alt="food" src={image} style={{ objectFit: "contain" }} />
+          <Image
+            className={`${hover && "opacity-0 transition-all"}`}
+            alt="food"
+            src={image}
+            style={{ objectFit: "contain" }}
+          />
+          {hover && (
+            <div className="text-white text-center absolute top-[30%] p-4 transition-all">
+              {item.description}
+            </div>
+          )}
         </div>
         {actions && <div className="mt-6 text-lg">{title}</div>}
         {!small && (
@@ -95,6 +109,6 @@ export default function Card({
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }

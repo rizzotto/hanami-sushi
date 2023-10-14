@@ -8,17 +8,57 @@ import CartItem from "../components/CartItem";
 import { useCartContext } from "../context/cart";
 import { useForm, Controller } from "react-hook-form";
 import React from "react";
+import { useRouter } from "next/navigation";
+
+const getTimeSlots = () => {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  const timeSlots = [];
+
+  const nextHour = hours + Math.floor((minutes + 30) / 60);
+  const nextMinute = (minutes + 30) % 60;
+  const formattedTime = `${String(nextHour).padStart(2, "0")}:${String(
+    nextMinute
+  ).padStart(2, "0")}`;
+  timeSlots.push(formattedTime);
+
+  for (let i = 1; i < 5; i++) {
+    const nextHour = hours + Math.floor((minutes + 30 + i * 30) / 60);
+    const nextMinute = (minutes + 30 + i * 30) % 60;
+    const formattedTime = `${String(nextHour).padStart(2, "0")}:${String(
+      nextMinute
+    ).padStart(2, "0")}`;
+    timeSlots.push(formattedTime);
+  }
+  return timeSlots;
+};
 
 export default function Cart() {
   const { cart, setCart, getCartGrouped, getCartPrice } = useCartContext();
+  const times = getTimeSlots();
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      asap: false,
+      floor: "",
+      name: "",
+      number: "",
+      observations: "",
+      phoneNumber: "",
+      street: "",
+      time: times[0],
+    },
+  });
 
   const [payment, setPayment] = React.useState("online");
+  const [asap, setAsap] = React.useState(false);
+  const { push } = useRouter();
 
   const handleDelete = (id: number) => {
     const copyCart = [...cart];
@@ -31,8 +71,8 @@ export default function Cart() {
   };
 
   const onSubmit = (data) => {
-    // You can access form data here
     console.log(data);
+    push("/order");
   };
 
   const handlePayment = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -215,17 +255,20 @@ export default function Cart() {
                     render={({ field }) => (
                       <select
                         {...field}
-                        className="select select-bordered w-[295px] rounded-none border-[--fg] bg-transparent text-[--fg] placeholder:text-red-500"
+                        className="select select-bordered disabled:border disabled:border-[#363636] w-[295px] rounded-none border-[--fg] bg-transparent text-[--fg] placeholder:text-red-500"
                         placeholder={errors.time && "Time is required"}
+                        disabled={asap}
                       >
-                        <option value="" disabled>
-                          Who shot first?
-                        </option>
-                        <option value="Han Solo">Han Solo</option>
-                        <option value="Greedo">Greedo</option>
+                        {times.map((time, i) => (
+                          <option key={`${time}-${i}`} value={time}>
+                            {time}
+                          </option>
+                        ))}
                       </select>
                     )}
-                    rules={{ required: "Time is required" }}
+                    rules={{
+                      required: !asap ? "Time is required" : undefined,
+                    }}
                   />
                 </div>
 
@@ -238,8 +281,11 @@ export default function Cart() {
                       render={({ field }) => (
                         <input
                           {...field}
+                          checked={asap}
+                          onChange={() => setAsap((prev) => !prev)}
                           type="checkbox"
                           className="checkbox rounded-none border-[--fg] bg-transparent text-[--fg]"
+                          value={asap ? "true" : "false"}
                         />
                       )}
                     />

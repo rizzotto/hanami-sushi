@@ -76,7 +76,16 @@ export default function Cart() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: {
+    asap: boolean;
+    floor: string;
+    name: string;
+    number: string;
+    observations: string;
+    phoneNumber: string;
+    street: string;
+    time: string;
+  }) => {
     console.log(data);
     router.push(`/order/${random()}-${data.time}`);
   };

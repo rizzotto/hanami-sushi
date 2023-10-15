@@ -8,7 +8,7 @@ export default function Footer() {
   const libraries = React.useMemo(() => ["places"], []);
 
   const isXs = useMediaQuery({
-    query: `(max-width: 370px)`,
+    query: `(max-width: 395px)`,
   });
   const isSm = useMediaQuery({
     query: `(max-width: 550px)`,

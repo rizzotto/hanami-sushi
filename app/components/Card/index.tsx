@@ -37,6 +37,7 @@ export default function Card({
 }) {
   const { cart, setCart } = useCartContext();
   const [hover, setHover] = React.useState(false);
+  const [loaded, setLoaded] = React.useState(false);
 
   const getRandomIndex = React.useCallback(() => {
     return Math.floor(Math.random() * rotationsStick.length);
@@ -53,7 +54,7 @@ export default function Card({
     setCart(copyCart);
   };
 
-  const { title, image } = item;
+  const { title, image, placeholder } = item;
 
   return (
     <>
@@ -71,14 +72,23 @@ export default function Card({
         <div
           className={`bg-black relative ${
             small ? "h-22 w-28" : "h-full w-full"
-          }  flex items-center justify-center`}
+          }  flex items-center justify-center ${!loaded && "animate-pulse"}`}
+          style={{
+            backgroundImage: !loaded ? `url(${placeholder.src})` : undefined,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+          }}
         >
           <Image
-            className={`${hover && "opacity-0 transition-all"}`}
+            className={`${hover && "opacity-0 transition-all"} ${
+              !loaded ? "opacity-0" : "opacity-1"
+            }`}
             alt="food"
             src={image}
+            onLoadingComplete={() => setLoaded(true)}
             loading="lazy"
-            style={{ objectFit: "contain" }}
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
           {hover && (
             <div className="text-white text-center absolute top-[30%] p-4 transition-all">

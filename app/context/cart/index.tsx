@@ -23,30 +23,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }
 
   function getCartGrouped() {
-    const groupedCart: Data[] = [];
+    const groupedCart = new Map();
 
     cart.forEach((item) => {
-      if (groupedCart.includes(item)) {
-        const index = groupedCart.indexOf(item);
+      if (groupedCart.has(item.id)) {
+        const existingItem = groupedCart.get(item.id);
 
-        // not fully working
-        if (index !== -1) {
-          groupedCart[index] = {
-            ...item,
-            price: (
-              parseInt(item.price) + parseInt(item.solidPrice)
-            ).toString(),
-            quantity: (
-              parseInt(item.quantity) + parseInt(item.solidQuantity)
-            ).toString(),
-          };
-        }
+        groupedCart.set(item.id, {
+          ...existingItem,
+          price: (
+            parseInt(existingItem.price) + parseInt(item.price)
+          ).toString(),
+          quantity: (
+            parseInt(existingItem.quantity) + parseInt(item.quantity)
+          ).toString(),
+        });
       } else {
-        groupedCart.push(item);
+        groupedCart.set(item.id, item);
       }
     });
 
-    return groupedCart;
+    return Array.from(groupedCart.values());
   }
 
   return (

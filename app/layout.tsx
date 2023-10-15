@@ -30,7 +30,9 @@ export default function RootLayout({
       data-theme="light"
       className="max-w-7xl mx-auto h-screen py-10 px-4 scrollbar-thin scrollbar-thumb-neutral-200 scrollbar-track-neutral-400 bg-[#f1f1f1]"
     >
-      <body className={`${veles.variable} ${sunday.variable} font-primary`}>
+      <body
+        className={`${veles.variable} ${sunday.variable} font-primary overflow-x-hidden`}
+      >
         <Providers>
           <Header />
           <main>{children}</main>

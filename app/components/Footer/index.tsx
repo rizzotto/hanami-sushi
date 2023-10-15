@@ -10,6 +10,9 @@ export default function Footer() {
   const isXs = useMediaQuery({
     query: `(max-width: 370px)`,
   });
+  const isSm = useMediaQuery({
+    query: `(max-width: 550px)`,
+  });
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string,
@@ -36,10 +39,6 @@ export default function Footer() {
     []
   );
 
-  if (!isLoaded) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <footer className="footer p-10 text-[--fg] mt-4 items-start flex flex-col md:flex-row md:justify-between md:items-center lg:items-start">
       <aside className="mr-2">
@@ -52,25 +51,42 @@ export default function Footer() {
           <div>sushisushi@gmail.com</div>
         </div>
       </aside>
-      <GoogleMap
-        options={mapOptions}
-        zoom={18}
-        center={mapCenter}
-        mapTypeId={google.maps.MapTypeId.ROADMAP}
-        mapContainerStyle={{
-          width: "100%",
-          maxWidth: 400,
-          height: isXs ? "280px" : "200px",
-          borderRadius: 12,
-          border: "6px solid white",
-        }}
-        onLoad={() => console.log("Map Component Loaded...")}
-      >
-        <MarkerF
-          position={mapCenter}
-          onLoad={() => console.log("Marker Loaded")}
-        />
-      </GoogleMap>
+      {isLoaded ? (
+        <div className="relative">
+          <GoogleMap
+            options={mapOptions}
+            zoom={18}
+            center={mapCenter}
+            mapTypeId={google.maps.MapTypeId.ROADMAP}
+            mapContainerStyle={{
+              width: isXs ? 250 : 400,
+              height: isXs ? "200px" : isSm ? "240px" : "200px",
+              border: "6px solid white",
+            }}
+            onLoad={() => console.log("Map Component Loaded...")}
+          >
+            <MarkerF
+              position={mapCenter}
+              onLoad={() => console.log("Marker Loaded")}
+            />
+          </GoogleMap>
+          <div
+            className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] left-[-25px] rotate-[-30deg] opacity-60`}
+          />
+          <div
+            className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] right-[-25px] rotate-[30deg] opacity-60`}
+          />
+        </div>
+      ) : (
+        <div className="w-[300px] h-[200px] md:w-[400px] md:h-[200px] animate-pulse bg-zinc-400 relative border-4 border-white">
+          <div
+            className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] left-[-25px] rotate-[-30deg] opacity-60`}
+          />
+          <div
+            className={`w-12 h-6 bg-[#EEECD3] absolute top-[-10px] right-[-25px] rotate-[30deg] opacity-60`}
+          />
+        </div>
+      )}
       <nav className="ml-2">
         <header className="footer-title">Social</header>
         <div className="grid grid-flow-col gap-4">

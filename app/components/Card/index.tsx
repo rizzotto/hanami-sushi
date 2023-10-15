@@ -77,6 +77,7 @@ export default function Card({
             className={`${hover && "opacity-0 transition-all"}`}
             alt="food"
             src={image}
+            loading="lazy"
             style={{ objectFit: "contain" }}
           />
           {hover && (

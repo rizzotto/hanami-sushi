@@ -51,7 +51,14 @@ export default function Info() {
       </div>
 
       {!isLoaded ? (
-        "Loading"
+        <div className="w-[300px] h-[300px] md:w-[500px] md:h-[500px] lg:w-[800px] lg:h-[800px] animate-pulse bg-zinc-400 relative border-[12px] border-white">
+          <div
+            className={`w-20 h-6 bg-[#EEECD3] absolute top-[-10px] left-[-25px] rotate-[-30deg] opacity-60`}
+          />
+          <div
+            className={`w-20 h-6 bg-[#EEECD3] absolute top-[-10px] right-[-25px] rotate-[30deg] opacity-60`}
+          />
+        </div>
       ) : (
         <div className="relative mt-4">
           <GoogleMap

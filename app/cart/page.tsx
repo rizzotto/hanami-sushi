@@ -36,13 +36,15 @@ const getTimeSlots = () => {
 };
 
 export default function Cart() {
-  const { cart, setCart, getCartGrouped, getCartPrice } = useCartContext();
+  const { cart, setCart, getCartGrouped, getCartPrice, setOrder } =
+    useCartContext();
+
   const times = getTimeSlots();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     defaultValues: {
       asap: false,
@@ -87,6 +89,7 @@ export default function Cart() {
     time: string;
   }) => {
     setCart([]);
+    setOrder(`/order/${random()}-${data.time}`);
     router.push(`/order/${random()}-${data.time}`);
   };
 

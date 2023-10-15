@@ -8,18 +8,20 @@ interface CartContextType {
   getCartPrice: () => string;
   getCartGrouped: () => Data[];
   setCart: React.Dispatch<React.SetStateAction<any[]>>;
+  order: string;
+  setOrder: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<any[]>([]);
+  const [order, setOrder] = useState("");
 
   function getCartPrice() {
     return cart.length === 0
       ? "0"
       : cart.reduce((acc, item) => acc + parseFloat(item.price), 0);
-    // .toFixed(2)
   }
 
   function getCartGrouped() {
@@ -48,7 +50,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, setCart, getCartPrice, getCartGrouped }}
+      value={{ cart, setCart, getCartPrice, getCartGrouped, order, setOrder }}
     >
       {children}
     </CartContext.Provider>

@@ -56,15 +56,15 @@ export default function Header() {
         <div className="navbar-center">
           <Link
             className="max-[770px]:hidden font-semibold p-2 text-[--fg] hover:bg-[--bg] m-2 rounded-lg transition"
-            href={`/menu`}
-          >
-            Menu
-          </Link>
-          <Link
-            className="max-[770px]:hidden font-semibold p-2 text-[--fg] hover:bg-[--bg] m-2 rounded-lg transition"
             href={`/info`}
           >
             Info
+          </Link>
+          <Link
+            className="max-[770px]:hidden font-semibold p-2 text-[--fg] hover:bg-[--bg] m-2 rounded-lg transition"
+            href={`/menu`}
+          >
+            Menu
           </Link>
           <Link
             className="max-[770px]:hidden font-semibold p-2 text-[--fg] hover:bg-[--bg] m-2 rounded-lg transition"
@@ -108,14 +108,16 @@ export default function Header() {
               className="p-2 mt-3 bg-[#FEFEFE] shadow menu menu-sm dropdown-content rounded-box w-52"
             >
               <li>
+                <Link className="text-[--fg] hover:text-[--fg]" href={`/info`}>
+                  Info
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[--fg] hover:text-[--fg]" href={`/menu`}>
                   Menu
                 </Link>
               </li>
               <li>
-                <Link className="text-[--fg] hover:text-[--fg]" href={`/info`}>
-                  Info
-                </Link>
                 <Link className="text-[--fg] hover:text-[--fg]" href={`/cart`}>
                   Cart
                 </Link>

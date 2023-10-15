@@ -4,11 +4,16 @@ import Link from "next/link";
 import React from "react";
 import { PiShoppingCartSimple } from "react-icons/pi";
 import Dropdown from "../Dropdown";
+import { useMediaQuery } from "react-responsive";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   const { getCartPrice, getCartGrouped } = useCartContext();
+
+  const isSm = useMediaQuery({
+    query: `(max-width: 395px)`,
+  });
 
   const cart = getCartGrouped();
 
@@ -44,13 +49,13 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="navbar">
+      <div className="navbar px-0 md:px-3">
         <div className="navbar-start">
           <Link
             href="/"
             className="ml-2 text-xl normal-case hover:bg-[--bg] text-[--fg] btn btn-ghost"
           >
-            Hanami Sushi
+            {isSm ? "Hanami" : "Hanami Sushi"}
           </Link>
         </div>
         <div className="navbar-center">

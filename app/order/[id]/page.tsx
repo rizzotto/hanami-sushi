@@ -12,7 +12,7 @@ export default function Order({ params }: { params: { id: string } }) {
   React.useEffect(() => {
     const updateAfter1Minute = setTimeout(() => {
       setInterval("2");
-    }, 30000);
+    }, 20000);
 
     const updateAfter15Minutes = setTimeout(() => {
       setInterval("3");

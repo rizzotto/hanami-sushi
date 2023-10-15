@@ -43,12 +43,12 @@ export default function Footer() {
     <footer className="footer p-10 text-[--fg] mt-4 items-start flex flex-col md:flex-row md:justify-between md:items-center lg:items-start">
       <aside className="mr-2">
         <span className="font-bold text-2xl md:text-3xl tracking-wider mb-4">
-          +375 44 986 37 59
+          +55 51 3737-2728
         </span>
         <div className="flex flex-col gap-4 text-lg">
-          <div>Mins, Dzerzhinsky Ave. 38</div>
+          <div>R. Vasco da Gama, 837 - RS</div>
           <div>We work from 8:00 to 21:30</div>
-          <div>sushisushi@gmail.com</div>
+          <div>hanamisushi@gmail.com</div>
         </div>
       </aside>
       {isLoaded ? (

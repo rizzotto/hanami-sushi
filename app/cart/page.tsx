@@ -9,6 +9,7 @@ import { useCartContext } from "../context/cart";
 import { useForm, Controller } from "react-hook-form";
 import React from "react";
 import { useRouter } from "next/navigation";
+import ItemDashed from "../components/ItemDashed";
 
 const getTimeSlots = () => {
   const now = new Date();
@@ -99,6 +100,8 @@ export default function Cart() {
 
   const groupedCart = getCartGrouped();
 
+  const price = getCartPrice();
+
   return (
     <div className="flex flex-col items-center min-h-[70vh]">
       <Image alt="Cart title" src={cartTitle} style={{ objectFit: "cover" }} />
@@ -124,15 +127,12 @@ export default function Cart() {
           ))}
 
           <div className="w-full my-8 flex flex-col items-start justify-start md:max-w-[60%]">
-            <div className="flex items-end w-full justify-center my-3">
-              <div className="font-bold ">Cost Delivery</div>
-              <div className="w-full border border-dashed border-[--fg]"></div>
-              <div className="ml-4 px-6 text-center py-3 border border-[--fg] w-full max-w-[100px]">
-                12$
-              </div>
-            </div>
+            <ItemDashed
+              value={price > "40" ? "0$" : "12$"}
+              title="Cost Delivery"
+            />
 
-            <div className="flex items-end w-full justify-center my-3 ">
+            <div className="flex items-end w-full justify-center my-3 p-3">
               <div className="font-bold ">Coupon Code</div>
               <div className="w-full border border-dashed border-[--fg]"></div>
               <input
@@ -142,13 +142,10 @@ export default function Cart() {
               />
             </div>
 
-            <div className="flex items-end w-full justify-center mt-12 ">
-              <div className="font-bold ">Total</div>
-              <div className="w-full border border-dashed border-[--fg]"></div>
-              <div className="px-6 py-3 ml-4 border text-center border-[--fg] w-full max-w-[100px]">
-                {parseInt(getCartPrice() + 12)}$
-              </div>
-            </div>
+            <ItemDashed
+              value={`${parseInt(price + (price > "40" ? 0 : 12))}$`}
+              title="Total"
+            />
           </div>
 
           {/* Checkout */}

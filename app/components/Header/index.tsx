@@ -62,9 +62,9 @@ export default function Header() {
           </Link>
           <Link
             className="max-[770px]:hidden font-semibold p-2 text-[--fg] hover:bg-[--bg] m-2 rounded-lg transition"
-            href={`/about`}
+            href={`/info`}
           >
-            About
+            Info
           </Link>
           <Link
             className="max-[770px]:hidden font-semibold p-2 text-[--fg] hover:bg-[--bg] m-2 rounded-lg transition"
@@ -113,8 +113,8 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link className="text-[--fg] hover:text-[--fg]" href={`/about`}>
-                  About
+                <Link className="text-[--fg] hover:text-[--fg]" href={`/info`}>
+                  Info
                 </Link>
                 <Link className="text-[--fg] hover:text-[--fg]" href={`/cart`}>
                   Cart

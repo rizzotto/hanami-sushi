@@ -1,6 +1,7 @@
 import { useCartContext } from "@/app/context/cart";
 import CartItem from "../CartItem";
 import Link from "next/link";
+import ItemDashed from "../ItemDashed";
 
 export default function Dropdown({ children }: { children: React.ReactNode }) {
   const { getCartGrouped, getCartPrice, setCart } = useCartContext();
@@ -34,13 +35,7 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
         ))}
 
         <div className="flex flex-col items-center gap-2">
-          <div className="flex items-end w-full justify-center mt-2 p-3 ">
-            <div className="font-bold ">Total</div>
-            <div className="w-full border border-dashed border-[--fg]"></div>
-            <div className="px-6 py-3 ml-4 border text-center border-[--fg] w-full max-w-[100px]">
-              {parseInt(getCartPrice())}$
-            </div>
-          </div>
+          <ItemDashed title="Total" value={`${parseInt(getCartPrice())}$`} />
 
           <Link href="/cart">
             <button className="btn btn-outline hover:bg-[--bg] hover:border-[--fg] hover:text-[--fg] rounded-none normal-case">

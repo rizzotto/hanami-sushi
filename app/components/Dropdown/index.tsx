@@ -22,7 +22,7 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
       {children}
       <ul
         tabIndex={0}
-        className="dropdown-content overflow-x-hidden scrollbar-thin scrollbar-thumb-neutral-200 scrollbar-track-neutral-400 h-80 overflow-y-auto block bg-[#f1f1f1] z-[1] mt-[2px] menu shadow-lg rounded-none p-3"
+        className="dropdown-content overflow-x-hidden scrollbar-thin scrollbar-thumb-neutral-200 scrollbar-track-neutral-400 h-80 overflow-y-auto block bg-[#f1f1f1] z-[1] menu shadow-lg rounded-none p-3"
       >
         {cart.map((item, i) => (
           <CartItem

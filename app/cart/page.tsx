@@ -86,7 +86,7 @@ export default function Cart() {
     street: string;
     time: string;
   }) => {
-    console.log(data);
+    setCart([]);
     router.push(`/order/${random()}-${data.time}`);
   };
 

@@ -74,14 +74,14 @@ export default function CartItem({
             <div className="flex flex-col items-center justify-center">
               <button
                 onClick={handleAdd}
-                className="px-6 border-b border-[--fg] hover:bg-[--bg]"
+                className="px-6 py-[1px] border-b border-[--fg] hover:bg-[--bg]"
               >
                 <div className="min-w-[12px]">+</div>
               </button>
               <button
                 onClick={item.price > "0" ? handleMinus : undefined}
                 aria-disabled={item.price <= "0"}
-                className="px-6 hover:bg-[--bg] aria-disabled:bg-[#9b9b9b] aria-disabled:opacity-40 aria-disabled:cursor-not-allowed aria-disabled:hover:bg-[#9b9b9b]"
+                className="px-6 py-[1px] hover:bg-[--bg] aria-disabled:bg-[#9b9b9b] aria-disabled:opacity-40 aria-disabled:cursor-not-allowed aria-disabled:hover:bg-[#9b9b9b]"
               >
                 <div className="min-w-[12px]">-</div>
               </button>

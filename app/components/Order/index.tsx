@@ -12,6 +12,10 @@ export default function Order() {
   const targetTime = time;
   const [placeholder, setPlaceholder] = React.useState(false);
   const [orderStorage, setOrderStorage] = useLocalStorage<string>("order", "");
+  const [intervalStorage, setIntervalStorage] = useLocalStorage<string>(
+    "interval",
+    "1"
+  );
 
   // This cleans order when reaches the estimated time
   React.useEffect(() => {
@@ -24,13 +28,22 @@ export default function Order() {
       if (currentTime >= targetTime) {
         setOrder("");
         setOrderStorage("");
+        setIntervalStorage("1");
       }
     }, 10);
 
     return () => {
       clearTimeout(clear);
     };
-  }, [order, setOrder, setOrderStorage, time, targetTime, placeholder]);
+  }, [
+    order,
+    setOrder,
+    setIntervalStorage,
+    setOrderStorage,
+    time,
+    targetTime,
+    placeholder,
+  ]);
 
   if (order === "") return;
 

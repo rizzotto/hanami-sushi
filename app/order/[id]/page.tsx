@@ -3,19 +3,32 @@ import Image from "next/image";
 import orderTitle from "../../assets/order_title.svg";
 import React from "react";
 import Link from "next/link";
+import useLocalStorage from "use-local-storage";
 
 export default function Order({ params }: { params: { id: string } }) {
   const [id, time] = params.id.split("-");
   const [interval, setInterval] = React.useState("1");
+  const [intervalStorage, setIntervalStorage] = useLocalStorage<string>(
+    "interval",
+    "1"
+  );
   const fTime = time.replace("%3A", ":");
+
+  React.useEffect(() => {
+    if (intervalStorage) {
+      setInterval(intervalStorage);
+    }
+  }, []);
 
   React.useEffect(() => {
     const updateAfter1Minute = setTimeout(() => {
       setInterval("2");
+      setIntervalStorage("2");
     }, 20000);
 
     const updateAfter15Minutes = setTimeout(() => {
       setInterval("3");
+      setIntervalStorage("3");
     }, 700000);
 
     return () => {

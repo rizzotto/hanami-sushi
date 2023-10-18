@@ -2,9 +2,12 @@ import { useCartContext } from "@/app/context/cart";
 import CartItem from "../CartItem";
 import Link from "next/link";
 import ItemDashed from "../ItemDashed";
+import useLocalStorage from "use-local-storage";
+import { Data } from "@/app/types/Data";
 
 export default function Dropdown({ children }: { children: React.ReactNode }) {
   const { getCartGrouped, getCartPrice, setCart } = useCartContext();
+  const [cartStorage, setCartStorage] = useLocalStorage<Data[]>("cart", []);
 
   const cart = getCartGrouped();
 
@@ -15,6 +18,7 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
     if (indexToDelete !== -1) {
       copyCart.splice(indexToDelete, 1);
       setCart(copyCart);
+      setCartStorage(copyCart);
     }
   };
 

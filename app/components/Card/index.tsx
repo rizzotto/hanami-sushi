@@ -5,6 +5,7 @@ import { Data } from "@/app/types/Data";
 import Image from "next/image";
 import React from "react";
 import { PiShoppingCartSimple } from "react-icons/pi";
+import useLocalStorage from "use-local-storage";
 
 const rotationsStick = [
   "rotate-[-10deg]",
@@ -38,6 +39,7 @@ export default function Card({
   const { cart, setCart } = useCartContext();
   const [hover, setHover] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
+  const [cartStorage, setCartStorage] = useLocalStorage<Data[]>("cart", []);
 
   const getRandomIndex = React.useCallback(() => {
     return Math.floor(Math.random() * rotationsStick.length);
@@ -49,8 +51,9 @@ export default function Card({
   });
 
   const handleOnClick = () => {
-    const copyCart = [...cart];
+    let copyCart = [...cart];
     copyCart.push(item);
+    setCartStorage(copyCart);
     setCart(copyCart);
   };
 

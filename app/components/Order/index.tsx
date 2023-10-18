@@ -4,12 +4,14 @@ import { useCartContext } from "@/app/context/cart";
 import Link from "next/link";
 import React from "react";
 import { GiSushis } from "react-icons/gi";
+import useLocalStorage from "use-local-storage";
 
 export default function Order() {
   const { order, setOrder } = useCartContext();
   const [_, time] = order.split("-");
   const targetTime = time;
   const [placeholder, setPlaceholder] = React.useState(false);
+  const [orderStorage, setOrderStorage] = useLocalStorage<string>("order", "");
 
   // This cleans order when reaches the estimated time
   React.useEffect(() => {
@@ -21,13 +23,14 @@ export default function Order() {
 
       if (currentTime >= targetTime) {
         setOrder("");
+        setOrderStorage("");
       }
     }, 10);
 
     return () => {
       clearTimeout(clear);
     };
-  }, [order, setOrder, time, targetTime, placeholder]);
+  }, [order, setOrder, setOrderStorage, time, targetTime, placeholder]);
 
   if (order === "") return;
 

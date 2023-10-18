@@ -15,7 +15,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.11.0",
-    "react-responsive": "^9.0.2"
+    "react-responsive": "^9.0.2",
+    "use-local-storage": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.8.2",

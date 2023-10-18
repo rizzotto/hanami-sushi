@@ -1,7 +1,8 @@
 "use client";
 
 import { Data } from "@/app/types/Data";
-import { ReactNode, createContext, useContext, useState } from "react";
+import React, { ReactNode, createContext, useContext, useState } from "react";
+import useLocalStorage from "use-local-storage";
 
 interface CartContextType {
   cart: Data[];
@@ -15,8 +16,23 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [cartStorage, setCartStorage] = useLocalStorage<Data[]>("cart", []);
+  const [orderStorage, setOrderStorage] = useLocalStorage<string>("order", "");
+
   const [cart, setCart] = useState<any[]>([]);
   const [order, setOrder] = useState("");
+
+  React.useEffect(() => {
+    if (cartStorage) {
+      setCart(cartStorage);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (orderStorage) {
+      setOrder(orderStorage);
+    }
+  }, []);
 
   function getCartPrice() {
     return cart.length === 0

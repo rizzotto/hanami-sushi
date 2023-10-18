@@ -10,6 +10,8 @@ import { useForm, Controller } from "react-hook-form";
 import React from "react";
 import { useRouter } from "next/navigation";
 import ItemDashed from "../components/ItemDashed";
+import useLocalStorage from "use-local-storage";
+import { Data } from "../types/Data";
 
 const getTimeSlots = () => {
   const now = new Date();
@@ -39,6 +41,8 @@ const getTimeSlots = () => {
 export default function Cart() {
   const { cart, setCart, getCartGrouped, getCartPrice, setOrder } =
     useCartContext();
+  const [cartStorage, setCartStorage] = useLocalStorage<Data[]>("cart", []);
+  const [orderStorage, setOrderStorage] = useLocalStorage<string>("order", "");
 
   const times = getTimeSlots();
 
@@ -70,6 +74,7 @@ export default function Cart() {
     if (indexToDelete !== -1) {
       copyCart.splice(indexToDelete, 1);
       setCart(copyCart);
+      setCartStorage(copyCart);
     }
   };
 
@@ -90,7 +95,9 @@ export default function Cart() {
     time: string;
   }) => {
     setCart([]);
+    setCartStorage([]);
     setOrder(`/order/${random()}-${data.time}`);
+    setOrderStorage(`/order/${random()}-${data.time}`);
     router.push(`/order/${random()}-${data.time}`);
   };
 

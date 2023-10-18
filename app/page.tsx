@@ -21,8 +21,6 @@ export default function Home() {
     query: `(max-width: ${breakpoints?.sm})`,
   });
 
-  console.log(isSm);
-
   return (
     <div className="flex flex-col h-max md:h-[85vh] items-center justify-evenly">
       {/* <h1>Home</h1> */}
